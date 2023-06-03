@@ -27,6 +27,7 @@ class Node
         bool isFull(void);
         Node *getChild(int n);
         void paint(void);
+        Point *getPoint(void); 
 };
 
 #endif

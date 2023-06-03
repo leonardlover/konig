@@ -49,3 +49,8 @@ void Node::paint(void)
 {
     color = true;
 }
+
+Point* Node::getPoint(void) 
+{
+    return p;
+}
