@@ -10,7 +10,7 @@ class Node
         //T &data;
         Point *above; // upper left boundary
         Point *below; // bottom right boundary
-        Point *p; // inserted point
+        Point *point; // inserted point
         bool color; // capacity = 1, if there is a point, the node is black(true), otherwise it is white(false)
 
         Node *parent;
@@ -24,7 +24,7 @@ class Node
         void insert(Point *p);
         void subdivide(void);
         bool isDivided(void);
-        bool isFull(void);
+        bool isPainted(void);
         Node *getChild(int n);
         void paint(void);
         Point *getPoint(void); 

@@ -6,7 +6,7 @@ Node::Node(int tl, int tr, int bl, int br, Node *p)
 {
     above = new Point(tl, tr);
     below = new Point(bl, br);
-    p = nullptr;
+    point = nullptr;
     color = false;
     parent = p;
     *children = {nullptr};
@@ -14,7 +14,7 @@ Node::Node(int tl, int tr, int bl, int br, Node *p)
 }
 
 void Node::insert(Point *p) {
-    this->p = p;
+    this->point = p;
 }
 
 void Node::subdivide(void) 
@@ -35,7 +35,7 @@ bool Node::isDivided(void)
     return divided;
 }
 
-bool Node::isFull(void) 
+bool Node::isPainted(void) 
 {
     return color;
 }
@@ -52,5 +52,5 @@ void Node::paint(void)
 
 Point* Node::getPoint(void) 
 {
-    return p;
+    return point;
 }
