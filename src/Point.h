@@ -1,16 +1,25 @@
+#include <string>
 #ifndef POINT_H
 #define POINT_H
 
 class Point
 {
     private:
-        int _x;
-        int _y;
+        double _x;
+        double _y;
+        std::string _country;
+        std::string _city;
+        int _population;
 
     public:
-        Point(int x, int y);
-        int x(void);
-        int y(void);
+        Point();
+        Point(double x, double y);
+        Point(double x, double y, std::string country, std::string city, int population);
+        double x(void);
+        double y(void);
+        std::string country(void);
+        std::string city(void);
+        int population(void);
 };
 
 #endif
