@@ -3,7 +3,7 @@
 using namespace std;
 
 QuadTree::QuadTree(int xBound, int yBound) {
-    root = new Node(0, 0, xBound, yBound, nullptr);
+    root = new Node(-xBound, -yBound, xBound, yBound, nullptr);
     pointCount = 0;
     nodeCount = 0;
 }
@@ -18,7 +18,6 @@ int QuadTree::totalNodes(void) {
 
 void QuadTree::insert(Point *p) {
     insertAt(root, p);
-    pointCount++;
 }
 
 void QuadTree::insertAt(Node *node, Point *p) {
@@ -28,9 +27,11 @@ void QuadTree::insertAt(Node *node, Point *p) {
     if(!node->isPainted()) {
         node->insert(p);
         node->paint();
+        pointCount++;
     } else {
         if(!node->isDivided()) {
             node->subdivide();
+            nodeCount += 4;
         }
         for(int i = 0; i < 4; i++) {
             insertAt(node->getChild(i), p); // se inserta en los 4 :o

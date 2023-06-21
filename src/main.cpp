@@ -58,15 +58,16 @@ void input(double x, double y, string country, string city, int population, Quad
 
         Point *p = new Point(x, y, country, city, population);
         qt->insert(p);
-        cout << qt->totalPoints() << endl;
-        cout << "inserted " << endl << endl;
+        cout << "points: " << qt->totalPoints() << endl;
+        cout << "nodes: " << qt->totalNodes() << endl << endl;
     }
 }
 
 int main() {
     /* TODO:
-    -check boundaries
-    -add nodes to nodecount
+    > fixed manage edge cases (?)
+    > fixed negative cases
+    > fixed adding point when is indeed added
     */
     int xb, yb; // xbound, ybound
     cin >> xb >> yb;

@@ -57,6 +57,6 @@ Point* Node::getPoint(void)
 }
 
 bool Node::contains(Point *p) {
-    return(p->x() > this->above->x() && p->x() < this->below->x() &&
+    return(p->x() >= this->above->x() && p->x() <= this->below->x() &&
            p->y() > this->above->y() && p->y() < this->below->y());
 }
