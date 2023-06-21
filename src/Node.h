@@ -27,7 +27,8 @@ class Node
         bool isPainted(void);
         Node *getChild(int n);
         void paint(void);
-        Point *getPoint(void); 
+        Point *getPoint(void);
+        bool contains(Point *p);
 };
 
 #endif

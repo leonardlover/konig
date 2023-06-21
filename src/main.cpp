@@ -40,7 +40,7 @@ void input(double x, double y, string country, string city, int population, Quad
         city = word;
         cout << "city: " << city << endl;
         
-        getline(s,word,';'); // accencity
+        getline(s,word,';'); // accentcity
         getline(s,word,';'); // region
         getline(s,word,';');
         population = stoi(word);
@@ -58,11 +58,16 @@ void input(double x, double y, string country, string city, int population, Quad
 
         Point *p = new Point(x, y, country, city, population);
         qt->insert(p);
+        cout << qt->totalPoints() << endl;
         cout << "inserted " << endl << endl;
     }
 }
 
 int main() {
+    /* TODO:
+    -check boundaries
+    -add nodes to nodecount
+    */
     int xb, yb; // xbound, ybound
     cin >> xb >> yb;
     

@@ -1,5 +1,6 @@
 #include "Point.h"
 #include "Node.h"
+#include <iostream>
 
 // TODO
 Node::Node(int tl, int tr, int bl, int br, Node *p) 
@@ -53,4 +54,9 @@ void Node::paint(void)
 Point* Node::getPoint(void) 
 {
     return point;
+}
+
+bool Node::contains(Point *p) {
+    return(p->x() > this->above->x() && p->x() < this->below->x() &&
+           p->y() > this->above->y() && p->y() < this->below->y());
 }

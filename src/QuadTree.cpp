@@ -22,6 +22,9 @@ void QuadTree::insert(Point *p) {
 }
 
 void QuadTree::insertAt(Node *node, Point *p) {
+    if(!node->contains(p)) {
+        return;
+    }
     if(!node->isPainted()) {
         node->insert(p);
         node->paint();
@@ -30,7 +33,7 @@ void QuadTree::insertAt(Node *node, Point *p) {
             node->subdivide();
         }
         for(int i = 0; i < 4; i++) {
-            insertAt(node->getChild(i), p);
+            insertAt(node->getChild(i), p); // se inserta en los 4 :o
         }
     }
 }
