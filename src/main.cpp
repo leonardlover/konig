@@ -1,8 +1,6 @@
 #include "QuadTree.h"
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <vector>
 #include <sstream>
 
 using namespace std;
@@ -17,19 +15,19 @@ string formatd(string d) {
     return d;
 }
 
-void input(double x, double y, string country, string city, int population, QuadTree *qt, Point *list) {
+void input(double x, double y, string country, string city, int population, QuadTree *qt, int n) {
     cout << "input 18" << endl;
     fstream fin;
   
     cout << "fin.open 22" << endl;
-    fin.open("../../worldcitiespop_fixed.csv");//, ios::in);
+    fin.open("../../worldcitiespop_fixed.csv");
 
     string line, word;
     getline(fin, line);
 
     cout << "while fin temp 31" << endl;
-    while (getline(fin, line)) {
-  
+    for(int i = 0; i < n; ++i) {
+        getline(fin, line);
         stringstream s(line);
   
         getline(s,word,';');
@@ -65,12 +63,10 @@ void input(double x, double y, string country, string city, int population, Quad
 
 int main() {
     /* TODO:
-    > fixed manage edge cases (?)
-    > fixed negative cases
-    > fixed adding point when is indeed added
+    - list is working, cometi un error tonto y termine rehaciendo la funcion con vectores, pero funciona
     */
-    int xb, yb; // xbound, ybound
-    cin >> xb >> yb;
+    int xb, yb, n; // xbound, ybound
+    cin >> xb >> yb >> n;
     
     QuadTree *qt = new QuadTree(xb,yb);
 
@@ -78,35 +74,15 @@ int main() {
     double x, y;
     string country, city;
     int population;
-    Point* list;
+    vector<Point*> list;
 
-    cout << "input 82" << endl;
-    input(x,y,country,city,population, qt, list);
+    input(x,y,country,city,population, qt, n);
 
-    for(int i = 0; i < qt->totalPoints(); i++) {
-        cout << list[i].city() << " ";
+    list = qt->list();
+    for(int i = 0; i < qt->totalPoints(); ++i) {
+        cout << list[i]->country() << " - " << list[i]->city() << endl;
     }
     cout << endl;
-
-    /* file input
-    ifstream file;
-    file.open("../../worldcitiespop_fixed.csv");
-    string line;
-
-    while(getline(file,line)) { // insert points data
-        // create point
-        Point *p = new Point(x, y, country, city, population);
-        // insert
-        qt->insert(p);
-        
-        // print list
-        list = qt->list();
-        for(int i = 0; i < qt->totalPoints(); i++) {
-            cout << list[i].city() << " ";
-        }
-    }
-    cout << endl;
-    */
 
     return 0;
 }

@@ -1,6 +1,5 @@
 #include "Point.h"
 #include "Node.h"
-#include <iostream>
 
 // TODO
 Node::Node(int tl, int tr, int bl, int br, Node *p) 
@@ -14,7 +13,8 @@ Node::Node(int tl, int tr, int bl, int br, Node *p)
     divided = false;
 }
 
-void Node::insert(Point *p) {
+void Node::insert(Point *p) 
+{
     this->point = p;
 }
 
@@ -31,7 +31,7 @@ void Node::subdivide(void)
     divided = true;
 }
 
-bool Node::isDivided(void) 
+bool Node::isDivided(void)
 {
     return divided;
 }
@@ -56,7 +56,8 @@ Point* Node::getPoint(void)
     return point;
 }
 
-bool Node::contains(Point *p) {
+bool Node::contains(Point *p) 
+{
     return(p->x() >= this->above->x() && p->x() <= this->below->x() &&
            p->y() > this->above->y() && p->y() < this->below->y());
 }

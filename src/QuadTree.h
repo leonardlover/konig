@@ -3,6 +3,10 @@
 
 #include "Point.h"
 #include "Node.h"
+#include <vector>
+#include <stack>
+
+using namespace std;
 
 //template<typename T>
 class QuadTree
@@ -18,7 +22,7 @@ class QuadTree
         int totalNodes(void);
         void insert(Point *p);
         void insertAt(Node *node, Point *p);
-        Point *list(void);
+        std::vector<Point*> list(void);
         int countRegion(Point p, int d);
         int aggregateRegion(Point p, int d);
 };

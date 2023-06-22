@@ -1,6 +1,4 @@
 #include "QuadTree.h"
-#include <stack>
-using namespace std;
 
 QuadTree::QuadTree(int xBound, int yBound) {
     root = new Node(-xBound, -yBound, xBound, yBound, nullptr);
@@ -34,32 +32,30 @@ void QuadTree::insertAt(Node *node, Point *p) {
             nodeCount += 4;
         }
         for(int i = 0; i < 4; i++) {
-            insertAt(node->getChild(i), p); // se inserta en los 4 :o
+            insertAt(node->getChild(i), p);
         }
     }
 }
 
-Point* QuadTree::list(void) {
-    Point* arr = new Point[this->totalPoints()];
+vector<Point*> QuadTree::list(void) {
+    vector<Point*> v;
     stack<Node*> nodes;
     nodes.push(root);
-    unsigned int cont = 0;
 
     while(!nodes.empty()) {
         Node* x = nodes.top();
-        nodes.pop();
-        
-        if(x->isPainted()) {
-            if(x->isDivided()) {
-                for (int i = 3; i >= 0; --i)
+        nodes.pop(); 
+
+        if(x->isDivided()) {   
+            for (int i = 0; i < 4; i++) {
                     nodes.push(x->getChild(i));
-            } 
-            
-            else
-                arr[cont++] = *(x->getPoint());
+            }
+        }
+        if(x->isPainted()) {
+            v.push_back(x->getPoint());
         }
     }
-    return arr;
+    return v;
 }
 
 int QuadTree::countRegion(Point p, int d) {

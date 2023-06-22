@@ -1,6 +1,7 @@
-#include <string>
 #ifndef POINT_H
 #define POINT_H
+
+#include <string>
 
 class Point
 {
