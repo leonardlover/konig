@@ -20,12 +20,12 @@ class Node
     public:
         // TODO
         Node(int tl, int tr, int bl, int br, Node *p);
-        void insert(Point *p);
-        void subdivide(void);
+        void setPoint(Point *p);
+        void subdivide(Point *p);
         bool isDivided(void);
         bool isPainted(void);
         Node *getChild(int n);
-        void paint(void);
+        void setColor(bool c);
         Point *getPoint(void);
         bool contains(Point *p);
 };

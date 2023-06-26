@@ -27,71 +27,48 @@ string formatd(string d) { // format double, replaces ',' into '.'
     return d;
 }
 
-void input(double x, double y, string country, string city, int population, QuadTree *qt, int n) { // process input, reads from csv file, set up points and insert those points into the quadtree
-    fin.open("../../worldcitiespop_fixed.csv"); // open file
+void input(double x, double y, string country, string city, int population, QuadTree *qt, int n) {
+    fstream fin;
+
+    fin.open("../../worldcitiespop_fixed.csv");//, ios::in);
 
     string line, word;
-    getline(fin, line); // gets first line (description)
-    //Point *q;
-    for(int i = 0; i < n; i+=interval) {
-        long double duration_time = 0;
-        for(int j = i; j < i+interval; ++j) {
-        
-            getline(fin, line); // gets one line from the file
-            stringstream s(line); // splits the line into words
+    getline(fin, line);
 
-            // get data
-            getline(s,word,';'); // Country 
-            country = word;
+    while (n--) {
+        getline(fin, line);
+        stringstream s(line);
 
-            getline(s,word,';'); // City
-            city = word;
+        getline(s,word,';');
+        country = word;
+        //cout << "country: " << country << endl;
 
-            getline(s,word,';'); // Accentcity (ignore)
-            getline(s,word,';'); // Region (ignore)
+        getline(s,word,';');
+        city = word;
+        //cout << "city: " << city << endl;
 
-            getline(s,word,';'); // Population
-            population = stoi(word);
-            
-            getline(s,word,';'); // Latitude
-            y = stod(formatd(word));
-            
-            getline(s,word,';'); // Longitude
-            x = stod(formatd(word));
-            
-            getline(s,word,';'); // Geopint (ignore)
+        getline(s,word,';'); // accencity
+        getline(s,word,';'); // region
+        getline(s,word,';');
+        population = stoi(word);
+        //cout << "population: " << population << endl;
 
-            // build point
-            Point *p = new Point(x, y, country, city, population);
-            // insert and tomar tiempo de insercion        
-            auto start_time = chrono::high_resolution_clock::now();
-            qt->insert(p,false);
-            auto end_time = chrono::high_resolution_clock::now();
-            duration_time += (long double)chrono::duration_cast<chrono::nanoseconds>(end_time - start_time).count();
-            //this_thread::sleep_for(nanoseconds(10));
-            // q = p;
-        }
-        //for(int k = 0; k < tests; ++k) {
-            
-            //qt->insert(q, true);
-            
-            // display
-            /*
-            cout << "country: " << country << endl;
-            cout << "city: " << city << endl;
-            cout << "population: " << population << endl;
-            cout << "x: " << x << endl;
-            cout << "y: " << y << endl;
-            cout << "points: " << qt->totalPoints() << endl;
-            cout << "nodes: " << qt->totalNodes() << endl << endl;
-            */
-        //}
-        
+        getline(s,word,';');
+        x = stod(formatd(word));
+        //cout << "x: " << x << endl;
 
-        cout << "For n=" << i << ", it takes " << fixed << setprecision(18) << duration_time/interval << " microseconds to insert a Node" << endl;
-        file << fixed << setprecision(18) << duration_time / (interval*tests) << endl;
+        getline(s,word,';');
+        y = stod(formatd(word));
+        //cout << "y: " << y << endl;
+
+        getline(s,word,';'); // geopint
+
+        Point *p = new Point(x, y, country, city, population);
+        qt->insert(p);
+        //cout << "inserted " << endl;
     }
-    cout << qt->totalPoints() << endl;
+    cout << "total nodes: " << qt->totalNodes() << endl;
+    cout << "total points: " << qt->totalPoints() << endl << endl;
 }
 
 /* not actually a function, just to understand the format
@@ -115,7 +92,6 @@ double test(QuadTree *qt, int n, int interval, int tests) {
 int main(int argc, char *argv[]) {
     /* TODO:
     - usar todos los datos
-    - manage duplicated points !!!
     - testing
     - informe
     */

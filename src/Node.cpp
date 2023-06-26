@@ -13,12 +13,12 @@ Node::Node(int tl, int tr, int bl, int br, Node *p)
     divided = false;
 }
 
-void Node::insert(Point *p) 
+void Node::setPoint(Point *p) 
 {
     this->point = p;
 }
 
-void Node::subdivide(void) 
+void Node::subdivide(Point *p) 
 {
     Node *topLeft = new Node(above->x(), above->y(), below->x()/2, below->y()/2, this);
     this->children[0] = topLeft;
@@ -28,6 +28,11 @@ void Node::subdivide(void)
     this->children[2] = bottomLeft;
     Node *bottomRight = new Node(below->x()/2, below->y()/2, below->x(), below->y(), this);
     this->children[3] = bottomRight;
+    
+    for(int i = 0; i<4; ++i) {
+        if(this->children[i]->contains(p))
+            this->children[i]->setPoint(p);
+    }
     divided = true;
 }
 
@@ -46,9 +51,9 @@ Node* Node::getChild(int n)
     return children[n];
 }
 
-void Node::paint(void) 
+void Node::setColor(bool c) 
 {
-    color = true;
+    color = c;
 }
 
 Point* Node::getPoint(void) 

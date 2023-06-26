@@ -15,30 +15,30 @@ int QuadTree::totalNodes(void) {
     return this->nodeCount;
 }
 
-void QuadTree::insert(Point *p, bool test) {
-    insertAt(root, p, test);
+void QuadTree::insert(Point *p) {
+    insertAt(root, p);
 }
 
-void QuadTree::insertAt(Node *node, Point *p, bool test) {
+void QuadTree::insertAt(Node *node, Point *p) {
     if(!node->contains(p)) { // if the point is not contained in the node, return
         return;
     }
     if(!node->isPainted()) { // if this node is empty, insert the point
-        if(!test) {
-            node->insert(p);
-            node->paint();
+            node->setPoint(p);
+            node->setColor(true);
             pointCount++;
-        }
     } else { // if is not, divide and try inserting into its 4 children, only one is going to accept the point
         if(p->x() == node->getPoint()->x() && p->y() == node->getPoint()->y()) { // don't insert duplicated nodes
             return;
         }
         if(!node->isDivided()) {
-            node->subdivide();
+            node->subdivide(node->getPoint());
+            node->setPoint(nullptr);
+            node->setColor(false);
             nodeCount += 4;
         }
         for(int i = 0; i < 4; i++) {
-            insertAt(node->getChild(i), p, false);
+            insertAt(node->getChild(i), p);
         }
     }
     return;
