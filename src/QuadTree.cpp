@@ -1,9 +1,10 @@
 #include "QuadTree.h"
+#include <iostream>
 
-QuadTree::QuadTree(int xBound, int yBound) {
+QuadTree::QuadTree(int xBound, int yBound) { // qt´s canvas is initialized from -x,-y to x,y
     root = new Node(-xBound, -yBound, xBound, yBound, nullptr);
     pointCount = 0;
-    nodeCount = 0;
+    nodeCount = 1;
 }
 
 int QuadTree::totalPoints(void) {
@@ -14,27 +15,33 @@ int QuadTree::totalNodes(void) {
     return this->nodeCount;
 }
 
-void QuadTree::insert(Point *p) {
-    insertAt(root, p);
+void QuadTree::insert(Point *p, bool test) {
+    insertAt(root, p, test);
 }
 
-void QuadTree::insertAt(Node *node, Point *p) {
-    if(!node->contains(p)) {
+void QuadTree::insertAt(Node *node, Point *p, bool test) {
+    if(!node->contains(p)) { // if the point is not contained in the node, return
         return;
     }
-    if(!node->isPainted()) {
-        node->insert(p);
-        node->paint();
-        pointCount++;
-    } else {
+    if(!node->isPainted()) { // if this node is empty, insert the point
+        if(!test) {
+            node->insert(p);
+            node->paint();
+            pointCount++;
+        }
+    } else { // if is not, divide and try inserting into its 4 children, only one is going to accept the point
+        if(p->x() == node->getPoint()->x() && p->y() == node->getPoint()->y()) { // don't insert duplicated nodes
+            return;
+        }
         if(!node->isDivided()) {
             node->subdivide();
             nodeCount += 4;
         }
         for(int i = 0; i < 4; i++) {
-            insertAt(node->getChild(i), p);
+            insertAt(node->getChild(i), p, false);
         }
     }
+    return;
 }
 
 vector<Point*> QuadTree::list(void) {
@@ -48,7 +55,7 @@ vector<Point*> QuadTree::list(void) {
 
         if(x->isDivided()) {   
             for (int i = 0; i < 4; i++) {
-                    nodes.push(x->getChild(i));
+                nodes.push(x->getChild(i));
             }
         }
         if(x->isPainted()) {

@@ -16,7 +16,6 @@ class Node
         Node *parent;
         Node *children[4]; // 0: TopLeft, 1: TopRight; 2: BottomLeft, 3: BottomRight
         bool divided;
-        //Node **children;
 
     public:
         // TODO
