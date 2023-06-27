@@ -17,5 +17,10 @@ Point Box::getLower(void)
 
 bool Box::contains(Point p)
 {
-    return upper.x <= p.x && p.x < lower.x && upper.y <= p.y && p.y < lower.y;
+    return upper.x <= p.x && p.x <= lower.x && upper.y <= p.y && p.y <= lower.y;
+}
+
+bool Box::contains(Box b)
+{
+    return contains(b.getUpper()) && contains(b.getLower());
 }

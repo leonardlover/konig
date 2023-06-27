@@ -32,7 +32,7 @@ int QuadTree::totalNodes(void)
 
 void QuadTree::insert(Point p)
 {
-    root->insert(p);
+    root->insert(p, pointCount, nodeCount);
 }
 
 vector<Point> QuadTree::list(void)
@@ -57,12 +57,12 @@ vector<Point> QuadTree::list(void)
     return data;
 }
 
-int QuadTree::countRegion(Point p, int d)
+int QuadTree::countRegion(Point p, double d)
 {
-    return root->region(Box(Point(p.x - d, p.y - d), Point(p.x + d, p.y + d)), false);
+    return root->region(Box(Point(max(p.x - d, 0.0), max(p.y - d, 0.0)), Point(min(p.x + d, 360.0), min(p.y + d, 360.0))), false);
 }
 
-int QuadTree::aggregateRegion(Point p, int d)
+int QuadTree::aggregateRegion(Point p, double d)
 {
-    return root->region(Box(Point(p.x - d, p.y - d), Point(p.x + d, p.y + d)), true);
-}
+        return root->region(Box(Point(max(p.x - d, 0.0), max(p.y - d, 0.0)), Point(min(p.x + d, 360.0), min(p.y + d, 360.0))), true);
+    }

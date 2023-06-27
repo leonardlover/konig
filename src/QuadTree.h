@@ -18,8 +18,8 @@ class QuadTree
         int totalNodes(void);
         void insert(Point p);
         vector<Point> list(void);
-        int countRegion(Point p, int d);
-        int aggregateRegion(Point p, int d);
+        int countRegion(Point p, double d);
+        int aggregateRegion(Point p, double d);
 };
 
 #endif

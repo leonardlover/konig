@@ -14,6 +14,7 @@ class Box
         Point getUpper(void);
         Point getLower(void);
         bool contains(Point p);
+        bool contains(Box b);
 };
 
 #endif
