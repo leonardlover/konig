@@ -8,18 +8,18 @@ class QuadTree
 {
     private:
         Node *root;
-        int pointCount;
-        int nodeCount;
+        long long pointCount;
+        long long nodeCount;
 
     public:
         QuadTree(void);
         ~QuadTree(void);
-        int totalPoints(void);
-        int totalNodes(void);
+        long long totalPoints(void);
+        long long totalNodes(void);
         void insert(Point p);
         vector<Point> list(void);
-        int countRegion(Point p, double d);
-        int aggregateRegion(Point p, double d);
+        long long countRegion(Point p, double d);
+        long long aggregateRegion(Point p, double d);
 };
 
 #endif

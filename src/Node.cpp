@@ -11,8 +11,6 @@ Node::Node(Box bx, Node *par) : boundary(bx), point(Point(0.0, 0.0))
     parent = par;
     children.resize(4, nullptr);
     isLeaf = false;
-    localPoints = 0;
-    localPopulation = 0;
 }
 
 Node::~Node(void)
@@ -22,13 +20,10 @@ Node::~Node(void)
             delete c;
 }
 
-void Node::insert(Point p, int &pointCount, int &nodeCount)
+void Node::insert(Point p, long long &pointCount, long long &nodeCount)
 {
     if (!boundary.contains(p) || isLeaf)
         return;
-
-    localPoints++;
-    localPopulation += p.population;
 
     // TODO calcular upper bound correcta
     if (abs((boundary.getUpper()).x - (boundary.getLower()).x) <= 2.0) {
@@ -87,14 +82,16 @@ Point Node::data(void)
     return point;
 }
 
-int Node::region(Box bx, bool aggregate)
+long long Node::region(Box bx, bool aggregate)
 {
-    cout << bx.getLower().x << " " << bx.getUpper().y << endl;
     if (!boundary.contains(bx))
         return 0;
 
     if (isLeaf)
         return aggregate ? point.population : 1;
+
+    if (children[0] == nullptr)
+        return 0;
 
     for (int i = 0; i < children.size(); i++)
         if ((children[i]->bound()).contains(bx))

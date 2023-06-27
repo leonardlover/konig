@@ -14,19 +14,17 @@ class Node
         vector<Node *> children;
         Point point;
         bool isLeaf;
-        int localPoints;
-        int localPopulation;
 
     public:
         Node(Box bx, Node *par);
         ~Node(void);
-        void insert(Point p, int &pointCount, int &nodeCount);
+        void insert(Point p, long long &pointCount, long long &nodeCount);
         int divide(void);
         Box bound(void);
         vector<Node *> childs(void);
         bool hasPoint(void);
         Point data(void);
-        int region(Box bx, bool aggregate);
+        long long region(Box bx, bool aggregate);
 };
 
 #endif
