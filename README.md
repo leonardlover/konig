@@ -7,3 +7,6 @@ konig: a quadtree implementation
 - Claudia Cser
 - Leonardo Lovera
 - Jorge Santis
+
+### Dataset
+https://udec.instructure.com/courses/38666/files/2729829/download?download_frd=1
