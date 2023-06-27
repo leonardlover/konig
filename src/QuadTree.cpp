@@ -15,11 +15,11 @@ int QuadTree::totalNodes(void) {
     return nodeCount;
 }
 
-void QuadTree::insert(Point *p) {
+void QuadTree::insert(Point p) {
     insertAt(root, p);
 }
 
-void QuadTree::insertAt(Node *node, Point *p) {
+void QuadTree::insertAt(Node *node, Point p) {
     if(!node->contains(p)) { // if the point is not contained in the node, return
         return;
     }
@@ -66,8 +66,8 @@ void QuadTree::insertAt(Node *node, Point *p) {
     return;
 }
 
-vector<Point*> QuadTree::list(void) {
-    vector<Point*> v;
+vector<Point> QuadTree::list(void) {
+    vector<Point> v;
     stack<Node*> nodes;
     nodes.push(root);
 

@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
     double x, y;
     string country, city;
     int population;
-    vector<Point*> list;
+    vector<Point> list;
     input(x,y,country,city,population, qt, n);
     /*
     list = qt->list();
