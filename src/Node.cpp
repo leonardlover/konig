@@ -26,7 +26,7 @@ void Node::insert(Point p, long long &pointCount, long long &nodeCount)
         return;
 
     // TODO calcular upper bound correcta
-    if (abs((boundary.getUpper()).x - (boundary.getLower()).x) <= 0.00001) {
+    if (abs((boundary.getUpper()).x - (boundary.getLower()).x) <= 0.5) {
         point = p;
         isLeaf = true;
         pointCount++;
