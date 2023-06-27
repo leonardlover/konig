@@ -63,40 +63,63 @@ long double input(double x, double y, string country, string city, int populatio
         duration_time += (long double)chrono::duration_cast<chrono::nanoseconds>(end_time - start_time).count();
         //this_thread::sleep_for(nanoseconds(10));
         // q = p;
-    }
-        
-
-    
-    //cout << "total nodes: " << qt->totalNodes() << endl;
-    //cout << "total points: " << qt->totalPoints() << endl << endl;
-    //file << fixed << setprecision(18) << duration_time / (interval*tests) << endl;
-    
+    }   
     return duration_time;
 }
 
 
 
 int main(int argc, char *argv[]) {
-    int xb, yb;
-    int n[6] = {100000,200000,400000,800000,1600000,3000000};
-    //cin >> xb >> yb;
+    int n[7] = {100000,200000,400000,800000,1600000,3000000,3173648};
 
-    long double time[] = {0,0,0,0,0,0};
+    long double timeIns[] = {0,0,0,0,0,0,0};
+    long double timeCont[] = {0,0,0,0,0,0,0};
+    long double timeAggr[] = {0,0,0,0,0,0,0};
 
-    for (int i = 0; i < 6; ++i){
-        cout << "Iteracion n. "<< i+1 << "\nN = " << n[i] << endl;
+
+    QuadTree *qt = new QuadTree();
+    cout << "Midiendo inserciones:" << endl;
+    for (int i = 0; i < 7; ++i){
+        cout << "\tIteracion n. "<< i+1 << "\n\tN = " << n[i] << endl;
         for (int j = 0; j < 1; ++j){
-            //cout << j+1 << " ";
-            // quad tree parameters
+            delete qt;
             double x, y;
             string country, city;
             int population;
             vector<Point> list;
-            QuadTree *qt = new QuadTree();
-            time[i] += input(x,y,country,city,population, qt, n[i]);
+            qt = new QuadTree();
+            timeIns[i] += input(x,y,country,city,population, qt, n[i]);
+            //cout << qt->totalPoints() << endl;
+            //cout << qt->aggregateRegion(Point(180,180),200) << endl;
         }
-        time[i] /= 1.0;
-        cout << "\nTiempo: " << time[i]/1e9 << " s." << endl;
+        timeIns[i] /= 1.0;
+        cout << "\tTiempo: " << timeIns[i]/1e9 << " s.\n" << endl;
+    }
+
+    double X[6] = {2,90 ,90,100,150,180};
+    double Y[6] = {2,180,60,120,200,180};
+    double d[6] = {2,90 ,45,64 ,123,200};
+
+    cout << "Midiendo countRegion & aggregateRegion:" << endl;
+    for (int i = 0; i < 6; ++i){
+        cout << "\tIteracion n. "<< i+1 << "\n\tPoint = (" << X[i] << ", " << Y[i] << ") - d = " << d[i] << endl;
+        for (int j = 0; j < 1; ++j){
+            Point p = Point(X[i], Y[i]);
+            auto start_time1 = chrono::high_resolution_clock::now();
+            qt->countRegion(p,d[i]);
+            auto end_time1 = chrono::high_resolution_clock::now();
+            timeCont[i] += (long double)chrono::duration_cast<chrono::nanoseconds>(end_time1 - start_time1).count();
+
+            auto start_time2 = chrono::high_resolution_clock::now();
+            qt->aggregateRegion(p,d[i]);
+            auto end_time2 = chrono::high_resolution_clock::now();
+            timeAggr[i] += (long double)chrono::duration_cast<chrono::nanoseconds>(end_time2 - start_time2).count();
+
+        }
+        timeCont[i] /= 1.0;
+        timeAggr[i] /= 1.0;
+        cout << "\tTiempo countRegion: " << timeCont[i]/1e9 << " s." << endl;
+        cout << "\tTiempo aggregateRegion: " << timeAggr[i]/1e9 << " s.\n" << endl;
     }
 
     return 0;
