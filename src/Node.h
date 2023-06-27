@@ -18,7 +18,7 @@ class Node
 
     public:
         // TODO
-        Node(int tl, int tr, int bl, int br, Node *p);
+        Node(double tl, double tr, double bl, double br, Node *p);
         void setPoint(Point p);
         void subdivide(Point p);
         bool isDivided(void);

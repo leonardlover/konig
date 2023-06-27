@@ -3,7 +3,7 @@
 #include <iostream>
 
 // TODO
-Node::Node(int tl, int tr, int bl, int br, Node *p) 
+Node::Node(double tl, double tr, double bl, double br, Node *p) 
 {
     above = Point(tl, tr);
     below = Point(bl, br);
@@ -21,13 +21,13 @@ void Node::setPoint(Point p)
 
 void Node::subdivide(Point p) 
 {
-    Node *topLeft = new Node(above.x(), above.y(), below.x()/2, below.y()/2, this);
+    Node *topLeft = new Node(above.x(), above.y(), below.x()/2.0, below.y()/2.0, this);
     children[0] = topLeft;
-    Node *topRight = new Node(below.x()/2, above.y(), below.x(), below.y()/2, this);
+    Node *topRight = new Node(below.x()/2.0, above.y(), below.x(), below.y()/2.0, this);
     children[1] = topRight;
-    Node *bottomLeft = new Node(above.x(), below.y()/2, below.x()/2, below.y(), this);
+    Node *bottomLeft = new Node(above.x(), below.y()/2.0, below.x()/2.0, below.y(), this);
     children[2] = bottomLeft;
-    Node *bottomRight = new Node(below.x()/2, below.y()/2, below.x(), below.y(), this);
+    Node *bottomRight = new Node(below.x()/2.0, below.y()/2.0, below.x(), below.y(), this);
     children[3] = bottomRight;
     
     for(int i = 0; i<4; ++i) {

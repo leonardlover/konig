@@ -54,27 +54,27 @@ void input(double x, double y, string country, string city, int population, Quad
         //cout << "population: " << population << endl;
 
         getline(s,word,';');
-        x = stod(formatd(word));
+        x = stod(formatd(word)) + 180;
         //cout << "x: " << x << endl;
 
         getline(s,word,';');
-        y = stod(formatd(word));
+        y = stod(formatd(word)) + 180;
         //cout << "y: " << y << endl;
 
         getline(s,word,';'); // geopint
 
-        Point *p = new Point(x, y, country, city, population);
-        qt->insert(*p);
+        Point p = Point(x, y, country, city, population);
+        qt->insert(p);
         //cout << "inserted " << endl;
         vector<Point> list;
-        list = qt->list();
+        /*list = qt->list();
         int cont = 1;
         for(Point i: list) {
             cout << cont <<") " <<i.country() << " - " << i.city() << endl;
             cont++;
         }
         cout << endl;
-
+        */
     }
     cout << "total nodes: " << qt->totalNodes() << endl;
     cout << "total points: " << qt->totalPoints() << endl << endl;
@@ -107,10 +107,11 @@ int main(int argc, char *argv[]) {
 
     file.open ("data.txt");
 
-    int xb, yb, n; // xbound, ybound, number of cities
-    cin >> xb >> yb >> n;
+    double b;
+    int n; // xbound, ybound, number of cities
+    cin >> b >> n;
 
-    QuadTree *qt = new QuadTree(xb,yb);
+    QuadTree *qt = new QuadTree(b);
 
     // quad tree parameters
     double x, y;

@@ -1,8 +1,8 @@
 #include "QuadTree.h"
 #include <iostream>
 
-QuadTree::QuadTree(int xBound, int yBound) { // qt´s canvas is initialized from -x,-y to x,y
-    root = new Node(-xBound, -yBound, xBound, yBound, nullptr);
+QuadTree::QuadTree(double Bound) { // qt´s canvas is initialized from -x,-y to x,y
+    root = new Node(0.0, 0.0, Bound, Bound, nullptr);
     pointCount = 0;
     nodeCount = 1;
 }

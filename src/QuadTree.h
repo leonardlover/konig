@@ -17,7 +17,7 @@ class QuadTree
         int nodeCount;
 
     public:
-        QuadTree(int xBound, int yBound);
+        QuadTree(double Bound);
         int totalPoints(void);
         int totalNodes(void);
         void insert(Point p);
