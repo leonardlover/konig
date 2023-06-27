@@ -109,8 +109,8 @@ int main(int argc, char *argv[]) {
     int population;
     vector<Point*> list;
     input(x,y,country,city,population, qt, n);
-    
-    /*list = qt->list();
+    /*
+    list = qt->list();
     for(int i = 0; i < qt->totalPoints(); ++i) {
         cout << list[i]->country() << " - " << list[i]->city() << endl;
     }

@@ -8,11 +8,11 @@ QuadTree::QuadTree(int xBound, int yBound) { // qt´s canvas is initialized from
 }
 
 int QuadTree::totalPoints(void) {
-    return this->pointCount;
+    return pointCount;
 }
 
 int QuadTree::totalNodes(void) {
-    return this->nodeCount;
+    return nodeCount;
 }
 
 void QuadTree::insert(Point *p) {
@@ -23,6 +23,28 @@ void QuadTree::insertAt(Node *node, Point *p) {
     if(!node->contains(p)) { // if the point is not contained in the node, return
         return;
     }
+    if(node->isDivided()) {
+        for(int i = 0; i < 4; i++) {
+            insertAt(node->getChild(i), p);
+        }
+    } else {
+        if(!node->isPainted()) {
+            node->setPoint(p);
+            node->setColor(true);
+            pointCount++;
+        }
+        else {
+            node->subdivide(node->getPoint());
+            node->setPoint(nullptr);
+            node->setColor(false);
+            nodeCount += 4;
+        
+            for(int i = 0; i < 4; i++) {
+                insertAt(node->getChild(i), p);
+            }
+        }
+    }
+    /*
     if(!node->isPainted()) { // if this node is empty, insert the point
             node->setPoint(p);
             node->setColor(true);
@@ -40,7 +62,7 @@ void QuadTree::insertAt(Node *node, Point *p) {
         for(int i = 0; i < 4; i++) {
             insertAt(node->getChild(i), p);
         }
-    }
+    }*/
     return;
 }
 

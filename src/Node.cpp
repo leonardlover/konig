@@ -1,5 +1,6 @@
 #include "Point.h"
 #include "Node.h"
+#include <iostream>
 
 // TODO
 Node::Node(int tl, int tr, int bl, int br, Node *p) 
@@ -21,19 +22,23 @@ void Node::setPoint(Point *p)
 void Node::subdivide(Point *p) 
 {
     Node *topLeft = new Node(above->x(), above->y(), below->x()/2, below->y()/2, this);
-    this->children[0] = topLeft;
+    children[0] = topLeft;
     Node *topRight = new Node(below->x()/2, above->y(), below->x(), below->y()/2, this);
-    this->children[1] = topRight;
+    children[1] = topRight;
     Node *bottomLeft = new Node(above->x(), below->y()/2, below->x()/2, below->y(), this);
-    this->children[2] = bottomLeft;
+    children[2] = bottomLeft;
     Node *bottomRight = new Node(below->x()/2, below->y()/2, below->x(), below->y(), this);
-    this->children[3] = bottomRight;
+    children[3] = bottomRight;
     
     for(int i = 0; i<4; ++i) {
-        if(this->children[i]->contains(p))
-            this->children[i]->setPoint(p);
+        if(children[i]->contains(p)){
+            children[i]->setPoint(p);
+            divided = true;
+            return;
+        }
     }
     divided = true;
+    return;
 }
 
 bool Node::isDivided(void)
