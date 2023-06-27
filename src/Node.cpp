@@ -1,5 +1,5 @@
-#include <algorithm>
-#include <vector>
+#include <cmath>
+#include <iostream>
 #include "Box.h"
 #include "Node.h"
 
@@ -33,7 +33,8 @@ void Node::insert(Point p)
 
     divide();
 
-    for (int i = 0; i < children.size(); i++) {
+    int i;
+    for (i = 0; i < children.size(); i++) {
         if ((children[i]->bound()).contains(p)) {
             children[i]->insert(p);
             break;
@@ -45,7 +46,7 @@ void Node::divide(void)
 {
     Point up = boundary.getUpper();
     Point lo = boundary.getLower();
-    Point mi = Point(lo.x / 2.0, lo.y / 2.0);
+    Point mi = Point((lo.x + up.x) / 2.0, (lo.y + up.y) / 2.0);
 
     if (children[0] == nullptr) {
         children[0] = new Node(Box(up, mi), this);
