@@ -66,6 +66,15 @@ void input(double x, double y, string country, string city, int population, Quad
         Point *p = new Point(x, y, country, city, population);
         qt->insert(*p);
         //cout << "inserted " << endl;
+        vector<Point> list;
+        list = qt->list();
+        int cont = 1;
+        for(Point i: list) {
+            cout << cont <<") " <<i.country() << " - " << i.city() << endl;
+            cont++;
+        }
+        cout << endl;
+
     }
     cout << "total nodes: " << qt->totalNodes() << endl;
     cout << "total points: " << qt->totalPoints() << endl << endl;
@@ -107,14 +116,8 @@ int main(int argc, char *argv[]) {
     double x, y;
     string country, city;
     int population;
-    vector<Point> list;
     input(x,y,country,city,population, qt, n);
-    /*
-    list = qt->list();
-    for(int i = 0; i < qt->totalPoints(); ++i) {
-        cout << list[i]->country() << " - " << list[i]->city() << endl;
-    }
-    cout << endl;
-*/
+    
+
     return 0;
 }

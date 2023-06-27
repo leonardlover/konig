@@ -45,7 +45,7 @@ void QuadTree::insertAt(Node *node, Point p) {
             //cout << "subdividiendo" << endl;
             node->subdivide(node->getPoint());
             node->setPoint(Point());
-            node->setColor(false);
+            //node->setColor(false);
             nodeCount += 4;
 
             for(int i = 0; i < 4; i++) {
@@ -89,13 +89,15 @@ vector<Point> QuadTree::list(void) {
         Node* x = nodes.top();
         nodes.pop(); 
 
-        if(x->isDivided()) {   
-            for (int i = 0; i < 4; i++) {
-                nodes.push(x->getChild(i));
-            }
-        }
         if(x->isPainted()) {
-            v.push_back(x->getPoint());
+            if(x->isDivided()) {   
+                for (int i = 0; i < 4; i++) {
+                    nodes.push(x->getChild(i));
+                }
+            }   
+            else{
+                v.push_back(x->getPoint());
+            }
         }
     }
     return v;
