@@ -62,7 +62,7 @@ Box Node::bound(void)
     return boundary;
 }
 
-vector<Node *> childs(void)
+vector<Node *> Node::childs(void)
 {
     return children;
 }
