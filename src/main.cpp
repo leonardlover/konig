@@ -64,7 +64,7 @@ void input(double x, double y, string country, string city, int population, Quad
         getline(s,word,';'); // geopint
 
         Point *p = new Point(x, y, country, city, population);
-        qt->insert(p);
+        qt->insert(*p);
         //cout << "inserted " << endl;
     }
     cout << "total nodes: " << qt->totalNodes() << endl;

@@ -56,14 +56,14 @@ Node* Node::getChild(int n)
     return children[n];
 }
 
-void Node::setColor(bool c) 
-{
-    color = c;
-}
-
 Point Node::getPoint(void) 
 {
     return point;
+}
+
+void Node::setColor(bool c) 
+{
+    color = c;
 }
 
 bool Node::contains(Point p) 

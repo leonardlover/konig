@@ -21,29 +21,43 @@ void QuadTree::insert(Point p) {
 
 void QuadTree::insertAt(Node *node, Point p) {
     if(!node->contains(p)) { // if the point is not contained in the node, return
+        //cout << "no lo contiene" << endl;
         return;
     }
     if(node->isDivided()) {
         for(int i = 0; i < 4; i++) {
             insertAt(node->getChild(i), p);
         }
+        return;
     } else {
         if(!node->isPainted()) {
+            //cout << "insertado" << endl;
             node->setPoint(p);
             node->setColor(true);
             pointCount++;
+            return;
+        }
+        if(p.x() == node->getPoint().x() && p.y() == node->getPoint().y()){
+            //cout << "punto duplicado" << endl;
+            return;
         }
         else {
+            //cout << "subdividiendo" << endl;
             node->subdivide(node->getPoint());
             node->setPoint(Point());
             node->setColor(false);
             nodeCount += 4;
-        
+
             for(int i = 0; i < 4; i++) {
                 insertAt(node->getChild(i), p);
+                //cout << "a" << endl;
             }
+            return;
         }
+        return;
     }
+    
+
     /*
     if(!node->isPainted()) { // if this node is empty, insert the point
             node->setPoint(p);
