@@ -14,7 +14,8 @@ class Node
         vector<Node *> children;
         Point point;
         bool isLeaf;
-
+        bool color;
+        
     public:
         Node(Box bx, Node *par);
         ~Node(void);

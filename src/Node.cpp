@@ -11,6 +11,7 @@ Node::Node(Box bx, Node *par) : boundary(bx), point(Point(0.0, 0.0))
     parent = par;
     children.resize(4, nullptr);
     isLeaf = false;
+    color = false;
 }
 
 Node::~Node(void)
@@ -25,7 +26,6 @@ void Node::insert(Point p, long long &pointCount, long long &nodeCount)
     if (!boundary.contains(p) || isLeaf)
         return;
 
-    // TODO calcular upper bound correcta
     if (abs((boundary.getUpper()).x - (boundary.getLower()).x) <= 0.5) {
         point = p;
         isLeaf = true;
@@ -45,7 +45,7 @@ void Node::insert(Point p, long long &pointCount, long long &nodeCount)
 
 int Node::divide(void)
 {
-    if (children[0] != nullptr)
+    if (!color)
         return 0;
 
     Point up = boundary.getUpper();
@@ -58,6 +58,8 @@ int Node::divide(void)
     children[2] = new Node(Box(Point(up.x, mi.y),
                                Point(mi.x, lo.y)), this);
     children[3] = new Node(Box(mi, lo), this);
+
+    color = true;
 
     return 4;
 }
@@ -90,7 +92,7 @@ long long Node::region(Box bx, bool aggregate)
     if (isLeaf)
         return aggregate ? point.population : 1;
 
-    if (children[0] == nullptr)
+    if (!color)
         return 0;
 
     for (int i = 0; i < children.size(); i++)
