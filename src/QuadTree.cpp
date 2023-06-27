@@ -27,7 +27,7 @@ int QuadTree::totalPoints(void)
 
 int QuadTree::totalNodes(void)
 {
-    return totalNodes;
+    return nodeCount;
 }
 
 void QuadTree::insert(Point p)

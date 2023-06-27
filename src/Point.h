@@ -15,7 +15,7 @@ class Point
         int population;
 
         Point(double X, double Y);
-        Point(double X, double Y, const string &Country, const string &City, double Population);
+        Point(double X, double Y, const string &Country, const string &City, int Population);
 };
 
 #endif

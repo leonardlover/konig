@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Node::Node(Box bx, Node *par)
+Node::Node(Box bx, Node *par) : boundary(bx), point(Point(0.0, 0.0))
 {
     boundary = bx;
     parent = par;

@@ -24,6 +24,7 @@ class Node
         vector<Node *> childs(void);
         bool hasPoint(void);
         Point data(void);
+        int region(Box bx, bool aggregate);
 };
 
 #endif

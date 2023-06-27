@@ -12,7 +12,7 @@ Point::Point(double X, double Y)
     population = -1;
 }
 
-Point::Point(double X, double Y, const string &Country, const string &City, double Population)
+Point::Point(double X, double Y, const string &Country, const string &City, int Population)
 {
     x = X;
     y = Y;

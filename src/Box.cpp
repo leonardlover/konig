@@ -1,10 +1,8 @@
 #include "Box.h"
 #include "Point.h"
 
-Box::Box(Point p, Point q)
+Box::Box(Point p, Point q) : upper(p), lower(q)
 {
-    upper = p;
-    lower = q;
 }
 
 Point Box::getUpper(void)
