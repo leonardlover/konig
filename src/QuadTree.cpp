@@ -35,7 +35,7 @@ void QuadTree::insertAt(Node *node, Point p) {
         }
         else {
             node->subdivide(node->getPoint());
-            node->setPoint(nullptr);
+            node->setPoint(Point());
             node->setColor(false);
             nodeCount += 4;
         
