@@ -47,7 +47,7 @@ vector<Point> QuadTree::list(void)
 
         if (v->hasPoint())
             data.push_back(v->data());
-        if ((v->childs())[0] == nullptr)
+        if (!v->getColor())
             continue;
 
         for (int i = (v->childs()).size() - 1; i >= 0; i--)

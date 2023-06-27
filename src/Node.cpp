@@ -45,7 +45,7 @@ void Node::insert(Point p, long long &pointCount, long long &nodeCount)
 
 int Node::divide(void)
 {
-    if (!color)
+    if (color)
         return 0;
 
     Point up = boundary.getUpper();
@@ -77,6 +77,11 @@ vector<Node *> Node::childs(void)
 bool Node::hasPoint(void)
 {
     return isLeaf;
+}
+
+bool Node::getColor(void)
+{
+    return color;
 }
 
 Point Node::data(void)

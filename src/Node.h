@@ -24,6 +24,7 @@ class Node
         Box bound(void);
         vector<Node *> childs(void);
         bool hasPoint(void);
+        bool getColor(void);
         Point data(void);
         long long region(Box bx, bool aggregate);
 };
