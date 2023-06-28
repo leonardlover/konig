@@ -23,9 +23,11 @@ Node::~Node(void)
 
 void Node::insert(Point p, long long &pointCount, long long &nodeCount)
 {
-    if (!boundary.contains(p) || isLeaf)
+    if (!boundary.contains(p) || isLeaf) // if data is already in Point, ignore incoming one
         return;
 
+    // check if resolution of Node is at most the delta, if so, insert
+    // now points as close as delta = 0.5 are considered indistinguishable
     if (abs((boundary.getUpper()).x - (boundary.getLower()).x) <= 0.5) {
         point = p;
         isLeaf = true;
@@ -33,8 +35,14 @@ void Node::insert(Point p, long long &pointCount, long long &nodeCount)
         return;
     }
 
-    nodeCount += divide();
+    // this section is only reachable if
+    // Point is inside Node's boundary
+    // has no data allocated
+    // can be subdivided
 
+    nodeCount += divide(); // divide can be called without control since it does not divide if color == true
+
+    // find quadrant to insert Point and insert
     for (int i = 0; i < children.size(); i++) {
         if ((children[i]->bound()).contains(p)) {
             children[i]->insert(p, pointCount, nodeCount);
@@ -45,7 +53,7 @@ void Node::insert(Point p, long long &pointCount, long long &nodeCount)
 
 int Node::divide(void)
 {
-    if (color)
+    if (color) // already has children
         return 0;
 
     Point up = boundary.getUpper();
@@ -59,7 +67,7 @@ int Node::divide(void)
                                Point(mi.x, lo.y)), this);
     children[3] = new Node(Box(mi, lo), this);
 
-    color = true;
+    color = true; // has children
 
     return 4;
 }
@@ -89,21 +97,31 @@ Point Node::data(void)
     return point;
 }
 
+// this method works with recursion
+// partition Box into disjoint boxed each contained in the boundary of each children
 long long Node::region(Box bx, bool aggregate)
 {
     if (!boundary.contains(bx))
         return 0;
 
+    // cannot be subdivided and has data, so return it
     if (isLeaf)
         return aggregate ? point.population : 1;
 
     if (!color)
         return 0;
 
+    // there are 9 cases as to where a region can intersect Node's children:
+    // 1. completely contained in a quadrant (4 of these)
+    // 2. intersects 2 of them (4 of these, 2 horizontal, 2 vertical)
+    // 3. insersects all of them
+
+    // case 1
     for (int i = 0; i < children.size(); i++)
         if ((children[i]->bound()).contains(bx))
             return children[i]->region(bx, aggregate);
 
+    // case 2
     Point p = bx.getUpper();
     Point q = bx.getLower();
     if ((children[0]->bound()).contains(p) && (children[1]->bound()).contains(q)) {
@@ -130,6 +148,7 @@ long long Node::region(Box bx, bool aggregate)
                children[3]->region(Box(Point(p.x, Y), q), aggregate);
     }
 
+    // case 3
     Point r = (children[0]->bound()).getLower();
 
     return children[0]->region(Box(p, r), aggregate) +
