@@ -38,7 +38,7 @@ void QuadTree::insert(Point p)
 vector<Point> QuadTree::list(void)
 {
     vector<Point> data;
-    stack<Node *> traversal;
+    stack<Node *> traversal; // by using a stack this is a preorder traversal
     traversal.push(root);
 
     while (!traversal.empty()) {
