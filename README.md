@@ -1,12 +1,11 @@
-# konig
-konig: a quadtree implementation
+# konig: a quadtree implementation
 
-### Mini Proyecto 2 de Estructuras de Datos
-## Integrantes
+## Mini Proyecto 2 de Estructuras de Datos
+#### Integrantes
 
 - Claudia Cser
 - Leonardo Lovera
 - Jorge Santis
 
-### Dataset
+## Dataset: World Cities Population
 https://udec.instructure.com/courses/38666/files/2729829/download?download_frd=1
